@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interaktiv quiz om datakunnskap - test din kunnskap om programmering, maskinvare, internett og teknologi">
+  <title>Datakunnskap Quiz</title>
+  <style>
+    /* ===== CSS RESET & VARIABLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Colors */
+      --bg-primary: #0a0e27;
+      --bg-secondary: #1a1f3a;
+      --bg-card: rgba(26, 31, 58, 0.6);
+      --bg-card-hover: rgba(26, 31, 58, 0.8);
+      --accent: #4a9eff;
+      --accent-hover: #6bb0ff;
+      --success: #4caf50;
+      --error: #f44336;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b8d4;
+      --border: rgba(74, 158, 255, 0.3);
+      
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      
+      /* Border radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      
+      /* Transitions */
+      --transition: 0.3s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1329 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: var(--spacing-md);
+    }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.6s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+      padding: var(--spacing-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent) 0%, #6bb0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-info {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .timer, .highscore-display {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .timer span, .highscore-display span {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-container {
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-xs);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .progress-bar-bg {
+      height: 10px;
+      background: var(--bg-secondary);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent) 0%, #6bb0ff 100%);
+      transition: width var(--transition);
+      border-radius: 5px;
+    }
+
+    /* ===== QUIZ CARDS ===== */
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      backdrop-filter: blur(10px);
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeInUp 0.5s ease backwards;
+    }
+
+    .question-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(74, 158, 255, 0.2);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: var(--spacing-md);
+      gap: var(--spacing-sm);
+    }
+
+    .question-number {
+      background: var(--accent);
+      color: var(--text-primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .difficulty-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .difficulty-easy { background: #4caf50; color: white; }
+    .difficulty-medium { background: #ff9800; color: white; }
+    .difficulty-hard { background: #f44336; color: white; }
+
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* ===== OPTIONS ===== */
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-sm);
+    }
+
+    .option {
+      background: var(--bg-secondary);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(74, 158, 255, 0.1) 100%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .option:hover::before {
+      opacity: 1;
+    }
+
+    .option:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
+      background: var(--bg-card-hover);
+    }
+
+    .option.selected {
+      border-color: var(--accent);
+      background: rgba(74, 158, 255, 0.15);
+    }
+
+    .option.correct {
+      border-color: var(--success);
+      background: rgba(76, 175, 80, 0.15);
+    }
+
+    .option.wrong {
+      border-color: var(--error);
+      background: rgba(244, 67, 54, 0.15);
+    }
+
+    .option.show-correct {
+      border-color: var(--success);
+      border-style: dashed;
+    }
+
+    .option-text {
+      position: relative;
+      z-index: 1;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .option-indicator {
+      display: none;
+      margin-left: var(--spacing-xs);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .option.correct .option-indicator.correct-mark,
+    .option.wrong .option-indicator.wrong-mark,
+    .option.show-correct .option-indicator.correct-label {
+      display: inline;
+    }
+
+    .correct-mark { color: var(--success); }
+    .wrong-mark { color: var(--error); }
+    .correct-label {
+      color: var(--success);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .option.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    /* ===== BUTTONS ===== */
+    .submit-container {
+      display: flex;
+      justify-content: center;
+      margin: var(--spacing-xl) 0;
+    }
+
+    .btn {
+      padding: var(--spacing-md) var(--spacing-xl);
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, #6bb0ff 100%);
+      color: var(--text-primary);
+      box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74, 158, 255, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 2px solid var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent);
+      transform: scale(1.05);
+    }
+
+    /* ===== RESULT MODAL ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--spacing-md);
+    }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      max-width: 500px;
+      width: 100%;
+      animation: slideInUp 0.4s ease;
+      position: relative;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .modal-title {
+      font-size: 2rem;
+      margin-bottom: var(--spacing-sm);
+      background: linear-gradient(135deg, var(--accent) 0%, #6bb0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .modal-emoji {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .result-stats {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .stat-value {
+      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .new-highscore {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+      border: 2px solid var(--success);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      text-align: center;
+      margin-bottom: var(--spacing-md);
+      animation: pulse 1s ease infinite;
+    }
+
+    .new-highscore-text {
+      color: var(--success);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* Stagger animation for question cards */
+    .question-card:nth-child(1) { animation-delay: 0.05s; }
+    .question-card:nth-child(2) { animation-delay: 0.1s; }
+    .question-card:nth-child(3) { animation-delay: 0.15s; }
+    .question-card:nth-child(4) { animation-delay: 0.2s; }
+    .question-card:nth-child(5) { animation-delay: 0.25s; }
+    .question-card:nth-child(6) { animation-delay: 0.3s; }
+    .question-card:nth-child(7) { animation-delay: 0.35s; }
+    .question-card:nth-child(8) { animation-delay: 0.4s; }
+    .question-card:nth-child(9) { animation-delay: 0.45s; }
+    .question-card:nth-child(10) { animation-delay: 0.5s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      :root {
+        --spacing-xl: 2rem;
+        --spacing-lg: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-info {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+      }
+
+      .question-text {
+        font-size: 1.05rem;
+      }
+
+      .btn {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: var(--spacing-sm);
+      }
+
+      .container {
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      .question-card {
+        padding: var(--spacing-md);
+      }
+
+      .modal {
+        padding: var(--spacing-lg);
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+      }
+
+      .stat-value {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* ===== ACCESSIBILITY ===== */
+    .option:focus,
+    .btn:focus {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💻 Datakunnskap Quiz</h1>
+      <div class="header-info">
+        <div class="timer" role="timer" aria-live="polite">
+          ⏱️ Tid: <span id="timer-display">00:00</span>
+        </div>
+        <div class="highscore-display" aria-label="Highscore">
+          🏆 Highscore: <span id="highscore-display">-</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="progress-container" role="status" aria-live="polite">
+      <div class="progress-text">
+        <span id="progress-text">0/10 besvart</span>
+        <span id="progress-percentage">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+    </div>
+
+    <main class="quiz-container" id="quiz-container" role="main">
+      <!-- Questions will be rendered here -->
+    </main>
+
+    <div class="submit-container">
+      <button class="btn btn-primary" id="submit-btn" disabled aria-label="Send inn quiz">
+        Sjekk svar
+      </button>
+    </div>
+  </div>
+
+  <!-- Result Modal -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-emoji" id="result-emoji">🎉</div>
+        <h2 class="modal-title" id="modal-title">Resultat</h2>
+      </div>
+      <div id="new-highscore-banner"></div>
+      <div class="result-stats">
+        <div class="stat">
+          <span class="stat-label">Poengsum</span>
+          <span class="stat-value" id="score-display">0/10</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Prosent</span>
+          <span class="stat-value" id="percentage-display">0%</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Tidsbruk</span>
+          <span class="stat-value" id="time-display">00:00</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Din highscore</span>
+          <span class="stat-value" id="modal-highscore-display">-</span>
+        </div>
+      </div>
+      <button class="btn btn-secondary" id="restart-btn" style="width: 100%;" aria-label="Start quiz på nytt">
+        Ta quizen på nytt
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ===== DATA: QUESTIONS =====
+    const questionsData = [
+      {
+        id: 1,
+        question: "Hva står CPU for?",
+        options: [
+          "Central Processing Unit",
+          "Computer Personal Unit",
+          "Central Program Utility",
+          "Central Processor Upload"
+        ],
+        correctAnswer: 0,
+        difficulty: "easy"
+      },
+      {
+        id: 2,
+        question: "Hvilket programmeringsspråk brukes primært for å lage interaktive nettsider?",
+        options: [
+          "Python",
+          "JavaScript",
+          "C++",
+          "Java",
+          "Ruby"
+        ],
+        correctAnswer: 1,
+        difficulty: "easy"
+      },
+      {
+        id: 3,
+        question: "Hva er formålet med en VPN (Virtual Private Network)?",
+        options: [
+          "Øke internettfarten",
+          "Kryptere og beskytte internettforbindelsen",
+          "Laste ned filer raskere",
+          "Blokkere virus automatisk"
+        ],
+        correctAnswer: 1,
+        difficulty: "medium"
+      },
+      {
+        id: 4,
+        question: "Hva er RAM?",
+        options: [
+          "Permanent lagring",
+          "Midlertidig arbeidsminne",
+          "En type prosessor",
+          "Ekstern lagringsenhet",
+          "En type skjermkort"
+        ],
+        correctAnswer: 1,
+        difficulty: "easy"
+      },
+      {
+        id: 5,
+        question: "Hvilket angrep involverer å overvelde et system med trafikk for å gjøre det utilgjengelig?",
+        options: [
+          "Phishing",
+          "SQL Injection",
+          "DDoS (Distributed Denial of Service)",
+          "Man-in-the-Middle",
+          "Brute Force"
+        ],
+        correctAnswer: 2,
+        difficulty: "medium"
+      },
+      {
+        id: 6,
+        question: "Hva er Big O-notasjon brukt til i programmering?",
+        options: [
+          "Å beskrive kodestørrelsen i bytes",
+          "Å måle tids- og romkompleksitet for algoritmer",
+          "Å definere variabeltyper",
+          "Å angi antall linjer i koden"
+        ],
+        correctAnswer: 1,
+        difficulty: "hard"
+      },
+      {
+        id: 7,
+        question: "Hvilket lag i OSI-modellen håndterer IP-adresser og ruting?",
+        options: [
+          "Transport Layer",
+          "Network Layer",
+          "Data Link Layer",
+          "Application Layer",
+          "Session Layer"
+        ],
+        correctAnswer: 1,
+        difficulty: "hard"
+      },
+      {
+        id: 8,
+        question: "Hva er hovedforskjellen mellom HTTP og HTTPS?",
+        options: [
+          "HTTPS er raskere enn HTTP",
+          "HTTPS bruker kryptering (SSL/TLS), HTTP gjør ikke det",
+          "HTTP er nyere enn HTTPS",
+          "HTTPS fungerer kun på mobile enheter"
+        ],
+        correctAnswer: 1,
+        difficulty: "medium"
+      },
+      {
+        id: 9,
+        question: "Hva er formålet med Git i programvareutvikling?",
+        options: [
+          "Å kompilere kode",
+          "Å versjonskontrollere kode og samarbeide",
+          "Å debugge kode",
+          "Å kjøre tester automatisk",
+          "Å lage grafiske brukergrensesnitt"
+        ],
+        correctAnswer: 1,
+        difficulty: "medium"
+      },
+      {
+        id: 10,
+        question: "Hva er en 'zero-day vulnerability'?",
+        options: [
+          "En sårbarhet som ble oppdaget for lenge siden",
+          "En sårbarhet som er oppdaget men ikke fikset ennå",
+          "En sårbarhet som ikke påvirker systemet",
+          "En sårbarhet som kun finnes i testmiljøer"
+        ],
+        correctAnswer: 1,
+        difficulty: "hard"
+      }
+    ];
+
+    // ===== STATE MANAGEMENT =====
+    let state = {
+      questions: [],
+      selectedAnswers: {},
+      startTime: null,
+      elapsedTime: 0,
+      isSubmitted: false,
+      timerInterval: null,
+      score: 0,
+      percentage: 0
+    };
+
+    // ===== UTILITY: SHUFFLE ARRAY (Fisher-Yates) =====
+    function shuffleArray(array) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    // ===== UTILITY: FORMAT TIME =====
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // ===== TIMER FUNCTIONS =====
+    function startTimer() {
+      state.startTime = Date.now();
+      state.timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+        document.getElementById('timer-display').textContent = formatTime(elapsed);
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+        state.elapsedTime = Math.floor((Date.now() - state.startTime) / 1000);
+      }
+    }
+
+    // ===== LOCALSTORAGE: HIGHSCORE =====
+    function getHighscore() {
+      const saved = localStorage.getItem('quizHighscore');
+      return saved ? JSON.parse(saved) : null;
+    }
+
+    function setHighscore(score, time) {
+      localStorage.setItem('quizHighscore', JSON.stringify({ score, time }));
+    }
+
+    function displayHighscore() {
+      const highscore = getHighscore();
+      const displayElement = document.getElementById('highscore-display');
+      if (highscore) {
+        displayElement.textContent = `${highscore.score}/10 (${formatTime(highscore.time)})`;
+      } else {
+        displayElement.textContent = '-';
+      }
+    }
+
+    // ===== PROGRESS BAR =====
+    function updateProgress() {
+      const answered = Object.keys(state.selectedAnswers).length;
+      const total = state.questions.length;
+      const percentage = Math.round((answered / total) * 100);
+
+      document.getElementById('progress-text').textContent = `${answered}/${total} besvart`;
+      document.getElementById('progress-percentage').textContent = `${percentage}%`;
+      document.getElementById('progress-bar').style.width = `${percentage}%`;
+
+      // Enable submit button when all answered
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = answered < total;
+    }
+
+    // ===== RENDER QUIZ =====
+    function renderQuiz() {
+      // Shuffle questions
+      state.questions = shuffleArray(questionsData);
+      
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      state.questions.forEach((q, index) => {
+        const card = document.createElement('article');
+        card.className = 'question-card';
+        card.setAttribute('role', 'group');
+        card.setAttribute('aria-labelledby', `question-${q.id}`);
+
+        const difficultyClass = `difficulty-${q.difficulty}`;
+        const difficultyText = q.difficulty === 'easy' ? 'Lett' : 
+                               q.difficulty === 'medium' ? 'Middels' : 'Vanskelig';
+
+        const optionsHTML = q.options.map((option, optIndex) => `
+          <div class="option" 
+               data-question-id="${q.id}" 
+               data-option-index="${optIndex}"
+               role="radio"
+               aria-checked="false"
+               tabindex="0">
+            <span class="option-text">${option}</span>
+            <span class="option-indicator correct-mark">✓</span>
+            <span class="option-indicator wrong-mark">✗</span>
+            <span class="option-indicator correct-label">Riktig svar</span>
+          </div>
+        `).join('');
+
+        card.innerHTML = `
+          <div class="question-header">
+            <span class="question-number">Spørsmål ${index + 1}</span>
+            <span class="difficulty-badge ${difficultyClass}">${difficultyText}</span>
+          </div>
+          <h3 class="question-text" id="question-${q.id}">${q.question}</h3>
+          <div class="options" role="radiogroup" aria-labelledby="question-${q.id}">
+            ${optionsHTML}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      // Add event listeners
+      attachOptionListeners();
+    }
+
+    // ===== EVENT: OPTION SELECTION =====
+    function attachOptionListeners() {
+      const container = document.getElementById('quiz-container');
+      
+      container.addEventListener('click', handleOptionClick);
+      
+      // Keyboard accessibility
+      container.addEventListener('keydown', (e) => {
+        if (e.target.classList.contains('option') && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          handleOptionClick(e);
+        }
+      });
+    }
+
+    function handleOptionClick(e) {
+      const option = e.target.closest('.option');
+      if (!option || state.isSubmitted) return;
+
+      const questionId = parseInt(option.dataset.questionId);
+      const optionIndex = parseInt(option.dataset.optionIndex);
+
+      // Deselect other options in same question
+      const allOptionsInQuestion = document.querySelectorAll(`[data-question-id="${questionId}"]`);
+      allOptionsInQuestion.forEach(opt => {
+        opt.classList.remove('selected');
+        opt.setAttribute('aria-checked', 'false');
+      });
+
+      // Select clicked option
+      option.classList.add('selected');
+      option.setAttribute('aria-checked', 'true');
+
+      // Update state
+      state.selectedAnswers[questionId] = optionIndex;
+
+      // Update progress
+      updateProgress();
+    }
+
+    // ===== SCORING & SUBMIT =====
+    function calculateScore() {
+      let correct = 0;
+      state.questions.forEach(q => {
+        if (state.selectedAnswers[q.id] === q.correctAnswer) {
+          correct++;
+        }
+      });
+      state.score = correct;
+      state.percentage = Math.round((correct / state.questions.length) * 100);
+    }
+
+    function markAnswers() {
+      state.questions.forEach(q => {
+        const userAnswer = state.selectedAnswers[q.id];
+        const correctAnswer = q.correctAnswer;
+        const allOptions = document.querySelectorAll(`[data-question-id="${q.id}"]`);
+
+        allOptions.forEach((option, index) => {
+          option.classList.add('disabled');
+
+          if (index === userAnswer && index === correctAnswer) {
+            // User selected correct answer
+            option.classList.add('correct');
+          } else if (index === userAnswer && index !== correctAnswer) {
+            // User selected wrong answer
+            option.classList.add('wrong');
+          } else if (index === correctAnswer) {
+            // Show correct answer
+            option.classList.add('show-correct');
+          }
+        });
+      });
+    }
+
+    function handleSubmit() {
+      if (state.isSubmitted) return;
+
+      state.isSubmitted = true;
+      stopTimer();
+      calculateScore();
+      markAnswers();
+
+      // Disable submit button
+      document.getElementById('submit-btn').disabled = true;
+
+      // Check and update highscore
+      const highscore = getHighscore();
+      let isNewHighscore = false;
+
+      if (!highscore || 
+          state.score > highscore.score || 
+          (state.score === highscore.score && state.elapsedTime < highscore.time)) {
+        setHighscore(state.score, state.elapsedTime);
+        isNewHighscore = true;
+        displayHighscore();
+      }
+
+      // Show result modal
+      showResultModal(isNewHighscore);
+    }
+
+    // ===== RESULT MODAL =====
+    function showResultModal(isNewHighscore) {
+      const modal = document.getElementById('modal-overlay');
+      const emoji = document.getElementById('result-emoji');
+      const scoreDisplay = document.getElementById('score-display');
+      const percentageDisplay = document.getElementById('percentage-display');
+      const timeDisplay = document.getElementById('time-display');
+      const highscoreDisplay = document.getElementById('modal-highscore-display');
+      const banner = document.getElementById('new-highscore-banner');
+
+      // Set emoji based on score
+      if (state.percentage >= 90) emoji.textContent = '🎉';
+      else if (state.percentage >= 70) emoji.textContent = '😊';
+      else if (state.percentage >= 50) emoji.textContent = '🙂';
+      else emoji.textContent = '😕';
+
+      // Display stats
+      scoreDisplay.textContent = `${state.score}/${state.questions.length}`;
+      percentageDisplay.textContent = `${state.percentage}%`;
+      timeDisplay.textContent = formatTime(state.elapsedTime);
+
+      const highscore = getHighscore();
+      highscoreDisplay.textContent = highscore ? `${highscore.score}/10 (${formatTime(highscore.time)})` : '-';
+
+      // New highscore banner
+      if (isNewHighscore) {
+        banner.innerHTML = `
+          <div class="new-highscore">
+            <div class="new-highscore-text">🎉 Ny highscore! 🎉</div>
+          </div>
+        `;
+      } else {
+        banner.innerHTML = '';
+      }
+
+      modal.classList.add('active');
+    }
+
+    function hideResultModal() {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    // ===== RESTART =====
+    function restartQuiz() {
+      // Reset state
+      state = {
+        questions: [],
+        selectedAnswers: {},
+        startTime: null,
+        elapsedTime: 0,
+        isSubmitted: false,
+        timerInterval: null,
+        score: 0,
+        percentage: 0
+      };
+
+      // Hide modal
+      hideResultModal();
+
+      // Reset UI
+      document.getElementById('timer-display').textContent = '00:00';
+      document.getElementById('progress-text').textContent = '0/10 besvart';
+      document.getElementById('progress-percentage').textContent = '0%';
+      document.getElementById('progress-bar').style.width = '0%';
+      document.getElementById('submit-btn').disabled = true;
+
+      // Re-render quiz
+      renderQuiz();
+
+      // Restart timer
+      startTimer();
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', () => {
+      displayHighscore();
+      renderQuiz();
+      startTimer();
+
+      // Event listeners
+      document.getElementById('submit-btn').addEventListener('click', handleSubmit);
+      document.getElementById('restart-btn').addEventListener('click', restartQuiz);
+
+      // Close modal on overlay click
+      document.getElementById('modal-overlay').addEventListener('click', (e) => {
+        if (e.target.id === 'modal-overlay') {
+          hideResultModal();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
