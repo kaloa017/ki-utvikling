@@ -1,5 +1,8 @@
 # Oppgave 4.3 – Sky mot lokal
 
+En utvidet sammenligningsrapport finnes i
+[COMPARISON.md](COMPARISON.md).
+
 ## Forsøk
 
 De samme tre instruksene ble brukt mot:
