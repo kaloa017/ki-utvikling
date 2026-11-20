@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kunnskapsløpet er en rask quiz i generell datakunnskap.">
+  <title>Kunnskapsløpet — Quiz med highscore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Kunnskapsløpet hjem">
+      <span class="brand-mark">K</span>
+      <span>Kunnskapsløpet</span>
+    </a>
+    <span class="header-note">10 spørsmål · 1 forsøk</span>
+  </header>
+
+  <main>
+    <section id="homeView" class="view home-view" aria-labelledby="homeTitle">
+      <div class="hero-copy">
+        <p class="eyebrow">Test deg selv</p>
+        <h1 id="homeTitle">Hvor mye kan du om den digitale verden?</h1>
+        <p class="hero-lead">Ti spørsmål. Ett forsøk. Et nytt navn på tavlen.</p>
+        <button id="startButton" class="button button-primary" type="button">Start quizen <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="art-orbit orbit-one"></span>
+        <span class="art-orbit orbit-two"></span>
+        <span class="art-core">10</span>
+        <span class="art-label label-top">DATA</span>
+        <span class="art-label label-bottom">KURIOSITET</span>
+      </div>
+      <div class="highscore-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">På tavlen</p>
+            <h2>Highscore</h2>
+          </div>
+          <button id="refreshScoresButton" class="text-button" type="button">Oppdater</button>
+        </div>
+        <div id="homeScores" class="score-list" aria-live="polite">
+          <p class="loading-message">Laster resultater …</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quizView" class="view quiz-view" aria-labelledby="quizTitle" hidden>
+      <div class="quiz-topline">
+        <p class="eyebrow">Kunnskapsløpet</p>
+        <p id="progressText">Spørsmål 1 av 10</p>
+      </div>
+      <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+      <article class="question-card">
+        <p id="questionCategory" class="question-category">Kategori</p>
+        <h1 id="quizTitle">Spørsmål</h1>
+        <div id="answerOptions" class="answer-options" role="group" aria-label="Svaralternativer"></div>
+        <p id="answerHint" class="answer-hint">Velg ett svar for å fortsette.</p>
+        <button id="nextButton" class="button button-primary next-button" type="button" disabled>Neste spørsmål <span aria-hidden="true">→</span></button>
+      </article>
+    </section>
+
+    <section id="resultView" class="view result-view" aria-labelledby="resultTitle" hidden>
+      <div class="result-card">
+        <p class="eyebrow">Løpet er fullført</p>
+        <h1 id="resultTitle">Godt jobbet.</h1>
+        <div class="score-reveal"><span id="finalScore">0</span><small>/10 riktige</small></div>
+        <p id="resultMessage" class="result-message"></p>
+        <form id="scoreForm" class="score-form">
+          <label for="playerName">Skriv navnet ditt på tavlen</label>
+          <div class="name-row">
+            <input id="playerName" name="playerName" type="text" maxlength="30" autocomplete="name" placeholder="Navnet ditt" required>
+            <button class="button button-primary" type="submit">Lagre resultat</button>
+          </div>
+          <p id="formError" class="form-message error-message" role="alert"></p>
+          <p id="formSuccess" class="form-message success-message" role="status"></p>
+        </form>
+        <button id="playAgainButton" class="button button-secondary" type="button">Spill igjen</button>
+      </div>
+      <div class="highscore-panel result-scores">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">På tavlen</p>
+            <h2>Highscore</h2>
+          </div>
+        </div>
+        <div id="resultScores" class="score-list" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Kunnskapsløpet <span aria-hidden="true">/</span> Laget for nysgjerrige hoder</p>
+    <p>Resultater lagres lokalt på denne serveren.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
