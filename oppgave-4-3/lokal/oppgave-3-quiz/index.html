@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Den enkle quizzen</title>
+  <style>
+    :root{--blue:#4a90e2;--light:#f5f6fa;--ink:#333;--green:#2ecc71;--red:#e74c3c}
+    *{box-sizing:border-box}body{margin:0;padding:20px;min-height:100vh;display:grid;place-items:center;background:var(--light);color:var(--ink);font:16px/1.5 "Segoe UI",sans-serif}
+    .quiz-container{width:min(600px,100%);padding:30px;background:#fff;border-radius:8px;box-shadow:0 4px 15px #0000001a}
+    h1{text-align:center;color:var(--blue)}.question-text{font-size:1.2rem;font-weight:bold;margin:24px 0 16px}
+    .options-grid{display:grid;gap:10px}.option-btn{padding:15px;text-align:left;background:#fff;border:2px solid #e0e0e0;border-radius:8px;cursor:pointer}
+    .option-btn:hover,.option-btn.selected{border-color:var(--blue);background:#f0f8ff}.check{width:100%;margin-top:20px;padding:14px;border:0;border-radius:8px;background:var(--blue);color:#fff;font-weight:bold;cursor:pointer}
+    .progress{color:#777;font-size:.9rem}.result-box{display:none}.review-item{padding:12px;margin:8px 0;border-left:5px solid var(--red);background:#f9f9f9}.review-item.correct{border-color:var(--green)}
+    .error{color:var(--red)}button:focus-visible{outline:3px solid #222;outline-offset:3px}
+  </style>
+</head>
+<body>
+  <main class="quiz-container">
+    <h1>Den enkle quizzen</h1>
+    <section id="quiz-box"><p id="progress" class="progress"></p><p id="question" class="question-text"></p><div id="options" class="options-grid"></div><button id="check" class="check" type="button" disabled>Sjekk</button></section>
+    <section id="result-box" class="result-box"><h2>Resultat</h2><p id="score"></p><div id="review"></div><button id="again" class="check" type="button">Spill igjen</button></section>
+  </main>
+  <script>
+    const questions=[['Hva er CPU?', ['Prosessor','Skjerm','Batteri','Kabel'],0],['Hvor mange bits er én byte?',['4','8','16','32'],1],['Hva brukes HTML til?',['Struktur','Lyd','Kryptering','Bilder'],0],['Hva er H2O?',['Vann','Salt','Jern','Luft'],0],['Hvilken planet bor vi på?',['Mars','Jorden','Venus','Merkur'],1],['Hva står URL for?',['Universal Resource Locator','User Read Link','Unit Route Line','Universal Record List'],0],['Hva er RAM?',['Midlertidig minne','Prosessor','Skjerm','Program'],0],['Hvor mange sider har en trekant?',['2','3','4','5'],1],['Hva er en database?',['Strukturert datalager','Et tastatur','En kabel','Et bilde'],0],['Hva er et primtall?',['9','12','17','21'],2]];
+    let current=0,score=0,selected=null,answers=[];
+    const $=id=>document.getElementById(id);
+    function render(){const q=questions[current];$('progress').textContent=`Spørsmål ${current+1} av ${questions.length}`;$('question').textContent=q[0];$('options').replaceChildren();selected=null;$('check').disabled=true;q[1].forEach((text,i)=>{const b=document.createElement('button');b.type='button';b.className='option-btn';b.textContent=text;b.onclick=()=>{selected=i;document.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');$('check').disabled=false};$('options').append(b)})}
+    $('check').onclick=()=>{answers.push(selected);if(selected===questions[current][2])score++;current++;current<questions.length?render():finish()};
+    function finish(){$('quiz-box').style.display='none';$('result-box').style.display='block';$('score').textContent=`Du fikk ${score} av ${questions.length} riktige.`;$('review').replaceChildren();questions.forEach((q,i)=>{const d=document.createElement('div');d.className=`review-item ${answers[i]===q[2]?'correct':''}`;d.textContent=`${i+1}. ${q[0]} — Riktig svar: ${q[1][q[2]]}`;$('review').append(d)})}
+    $('again').onclick=()=>{current=0;score=0;answers=[];$('quiz-box').style.display='block';$('result-box').style.display='none';render()};render();
+  </script>
+</body>
+</html>
