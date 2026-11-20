@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="title desc">
+  <title id="title">Tactical theater map</title>
+  <desc id="desc">Abstract map with territory borders and strategic markers.</desc>
+  <rect width="640" height="520" fill="#152516"/>
+  <g fill="#203b27" stroke="#b8860b" stroke-width="2" opacity=".95">
+    <path d="M66 84 186 45l86 55-32 113-124 16-70-65z"/>
+    <path d="m282 100 112-48 115 73-36 107-112-19-65-57z"/>
+    <path d="m171 231 105-18 83 77-46 126-135-33-46-82z"/>
+    <path d="m365 232 108-2 86 83-70 119-126-36 34-82z"/>
+    <path d="m49 344 84-37 48 76-61 91-83-37z"/>
+  </g>
+  <g fill="none" stroke="#d4c5a9" stroke-width="1" opacity=".28">
+    <path d="M0 130h640M0 260h640M0 390h640M128 0v520M256 0v520M384 0v520M512 0v520"/>
+  </g>
+  <g fill="#8b0000" stroke="#f5f3ed" stroke-width="3">
+    <circle cx="184" cy="145" r="10"/><circle cx="416" cy="150" r="10"/>
+    <circle cx="282" cy="340" r="10"/><circle cx="535" cy="345" r="10"/>
+  </g>
+  <g fill="#b8860b">
+    <path d="m184 117 4 14 14 4-14 4-4 14-4-14-14-4 14-4z"/>
+    <path d="m416 386 4 14 14 4-14 4-4 14-4-14-14-4 14-4z"/>
+  </g>
+</svg>

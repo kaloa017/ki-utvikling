@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="World Conquest - Claim your territories, command your forces, rule the world">
+  <title>World Conquest - Strategy War Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="logo">World Conquest</div>
+      <ul class="nav-menu" id="primary-navigation">
+        <li><a href="#territories">Territories</a></li>
+        <li><a href="#warfare">Warfare</a></li>
+        <li><a href="#command">Command</a></li>
+        <li><a href="#intel">Intel</a></li>
+      </ul>
+      <button class="enlist-btn desktop-only">Enlist Now</button>
+      <button class="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+    <figure class="hero-visual">
+      <img src="hero-map.svg" alt="Stylized tactical map with marked territories">
+      <figcaption>Live theater map · 180 contested territories</figcaption>
+    </figure>
+  </nav>
+
+  <section class="hero-war-room">
+    <div class="map-overlay"></div>
+    <div class="strategic-grid"></div>
+    <div class="hero-command">
+      <h1 class="command-title">
+        <span class="rank">Commander</span>
+        <span class="directive">The World Is Your Theater</span>
+      </h1>
+      <p class="mission-brief">
+        Command forces across 180 territories. Forge alliances or stand alone. 
+        Build economies, fund research, deploy armies. Every choice reshapes the map.
+      </p>
+      <div class="action-orders">
+        <button class="primary-order">Begin Campaign</button>
+        <a href="#command" class="secondary-order">Study the Field</a>
+      </div>
+    </div>
+    <div class="theater-stats">
+      <div class="stat-marker">
+        <div class="stat-value">50,000</div>
+        <div class="stat-label">Active Commanders</div>
+      </div>
+      <div class="stat-marker">
+        <div class="stat-value">180</div>
+        <div class="stat-label">Contested Territories</div>
+      </div>
+      <div class="stat-marker">
+        <div class="stat-value">24/7</div>
+        <div class="stat-label">Live Operations</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="territories" class="territories-briefing">
+    <div class="briefing-container">
+      <header class="section-command">
+        <h2 class="section-heading">Territory and Economy</h2>
+        <p class="section-orders">Six theaters of operation define modern conquest</p>
+      </header>
+      
+      <div class="operations-grid">
+        <article class="operation-brief">
+          <div class="op-marker">🗺️</div>
+          <h3 class="op-title">Territory Control</h3>
+          <p class="op-description">
+            Claim and fortify positions across the world map. Each territory provides 
+            resources and strategic advantage. Defend what you take.
+          </p>
+        </article>
+
+        <article class="operation-brief">
+          <div class="op-marker">💰</div>
+          <h3 class="op-title">Economic Warfare</h3>
+          <p class="op-description">
+            Build infrastructure, manage supply lines, establish trade. A strong 
+            economy funds armies and keeps your war machine running.
+          </p>
+        </article>
+
+        <article class="operation-brief">
+          <div class="op-marker">🔬</div>
+          <h3 class="op-title">Research and Development</h3>
+          <p class="op-description">
+            Unlock advanced units, defensive systems, and economic upgrades. 
+            Technology wins wars before the first shot is fired.
+          </p>
+        </article>
+
+        <article class="operation-brief">
+          <div class="op-marker">⚔️</div>
+          <h3 class="op-title">Tactical Combat</h3>
+          <p class="op-description">
+            Deploy infantry, armor, air support, and special forces. Adapt tactics 
+            to terrain and enemy composition. Superior strategy beats superior numbers.
+          </p>
+        </article>
+
+        <article class="operation-brief">
+          <div class="op-marker">🤝</div>
+          <h3 class="op-title">Diplomatic Relations</h3>
+          <p class="op-description">
+            Form coalitions, negotiate treaties, or betray when the moment is right. 
+            Diplomacy can achieve what armies cannot.
+          </p>
+        </article>
+
+        <article class="operation-brief">
+          <div class="op-marker">👥</div>
+          <h3 class="op-title">Faction Allegiance</h3>
+          <p class="op-description">
+            Join one of five factions, each with unique doctrine and capabilities. 
+            Coordinate with allies to dominate entire regions.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="command" class="command-doctrine">
+    <div class="doctrine-container">
+      <header class="section-command">
+        <h2 class="section-heading">Path to Dominance</h2>
+        <p class="section-orders">Four stages of conquest</p>
+      </header>
+
+      <div class="doctrine-sequence">
+        <div class="doctrine-step">
+          <div class="step-marker">
+            <span class="step-numeral">I</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-heading">Select Your Faction</h3>
+            <p class="step-briefing">
+              Five factions offer distinct strategic advantages. The Empire prioritizes 
+              technology. The Federation controls resources. The Alliance specializes in 
+              defense. The Syndicate dominates trade. The Legion lives for combat. 
+              Choose according to your doctrine.
+            </p>
+          </div>
+        </div>
+
+        <div class="doctrine-step">
+          <div class="step-marker">
+            <span class="step-numeral">II</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-heading">Claim Territory</h3>
+            <p class="step-briefing">
+              Neutral zones await conquest. Rival commanders hold key positions. 
+              Expand methodically or strike aggressively. Balance offense with 
+              defensive preparation as your borders grow.
+            </p>
+          </div>
+        </div>
+
+        <div class="doctrine-step">
+          <div class="step-marker">
+            <span class="step-numeral">III</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-heading">Build Your Engine</h3>
+            <p class="step-briefing">
+              Develop production capacity, establish supply networks, fund research programs. 
+              Economic strength translates directly to military power. A commander who cannot 
+              field an army cannot hold territory.
+            </p>
+          </div>
+        </div>
+
+        <div class="doctrine-step">
+          <div class="step-marker">
+            <span class="step-numeral">IV</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-heading">Execute Total War</h3>
+            <p class="step-briefing">
+              Deploy combined arms, outmaneuver opponents, secure objectives. 
+              Form coalitions or fight solo. Only one commander claims final victory. 
+              The world bends to whoever holds the map.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="warfare" class="faction-roster">
+    <div class="roster-container">
+      <header class="section-command">
+        <h2 class="section-heading">Choose Your Allegiance</h2>
+        <p class="section-orders">Five factions, five doctrines</p>
+      </header>
+
+      <div class="faction-array">
+        <div class="faction-profile">
+          <div class="faction-emblem">🏛️</div>
+          <h3 class="faction-designation">The Empire</h3>
+          <p class="faction-doctrine">Technology Superiority</p>
+        </div>
+
+        <div class="faction-profile">
+          <div class="faction-emblem">🌾</div>
+          <h3 class="faction-designation">The Federation</h3>
+          <p class="faction-doctrine">Resource Dominance</p>
+        </div>
+
+        <div class="faction-profile">
+          <div class="faction-emblem">🛡️</div>
+          <h3 class="faction-designation">The Alliance</h3>
+          <p class="faction-doctrine">Defensive Mastery</p>
+        </div>
+
+        <div class="faction-profile">
+          <div class="faction-emblem">💎</div>
+          <h3 class="faction-designation">The Syndicate</h3>
+          <p class="faction-doctrine">Economic Control</p>
+        </div>
+
+        <div class="faction-profile">
+          <div class="faction-emblem">⚔️</div>
+          <h3 class="faction-designation">The Legion</h3>
+          <p class="faction-doctrine">Military Supremacy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-orders">
+    <div class="orders-container">
+      <h2 class="orders-heading">Command Awaits</h2>
+      <p class="orders-text">
+        Fifty thousand commanders are already reshaping the world. 
+        Enlist now and claim your first territory.
+      </p>
+      <div class="orders-actions">
+        <button class="primary-order">Begin Campaign</button>
+        <button class="intel-order">View Operations Manual</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="intel" class="contact-briefing">
+    <div class="contact-container">
+      <header class="section-command">
+        <h2 class="section-heading">Contact Command HQ</h2>
+        <p class="section-orders">Reach out for intelligence, support, or strategic inquiries</p>
+      </header>
+      
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="commanderName" class="form-label">Commander Name</label>
+          <input 
+            type="text" 
+            id="commanderName" 
+            name="commanderName" 
+            class="form-input" 
+            required
+            aria-required="true"
+            aria-describedby="nameError"
+          >
+          <span class="error-message" id="nameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-input" 
+            required
+            aria-required="true"
+            aria-describedby="emailError"
+          >
+          <span class="error-message" id="emailError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="message" class="form-label">Message</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            class="form-textarea" 
+            rows="6" 
+            required
+            aria-required="true"
+            aria-describedby="messageError"
+          ></textarea>
+          <span class="error-message" id="messageError"></span>
+        </div>
+
+        <button type="submit" class="submit-order">Send Message</button>
+      </form>
+
+      <div class="form-success" id="formSuccess" role="status" aria-live="polite" style="display: none;">
+        <div class="success-icon">✓</div>
+        <h3 class="success-heading">Message Received</h3>
+        <p class="success-text">
+          Your message passed local validation. Nothing was sent because this
+          demonstration has no backend or email integration.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="command-footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <div class="footer-logo">World Conquest</div>
+        <p class="footer-tagline">Strategic warfare reimagined</p>
+        <p class="footer-contact"><a href="mailto:command@worldconquest.example">command@worldconquest.example</a><br>+47 21 00 00 00</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4 class="footer-heading">Operations</h4>
+        <ul class="footer-links">
+          <li><a href="#territories">Territories</a></li>
+          <li><a href="#warfare">Warfare</a></li>
+          <li><a href="#command">Command</a></li>
+          <li><a href="#intel">Deploy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4 class="footer-heading">Intelligence</h4>
+        <ul class="footer-links">
+          <li><a href="#command">Command Center</a></li>
+          <li><a href="#territories">War Room</a></li>
+          <li><a href="#warfare">Rankings</a></li>
+          <li><a href="#intel">Archives</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4 class="footer-heading">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#command">Field Manual</a></li>
+          <li><a href="#intel">Terms of Service</a></li>
+          <li><a href="#intel">Privacy</a></li>
+          <li><a href="#intel">Contact HQ</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 World Conquest. All territories contested.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

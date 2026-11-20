@@ -1,0 +1,983 @@
+/* World Conquest - War Room Aesthetic */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --military-green: #1a2e1a;
+  --aged-paper: #d4c5a9;
+  --blood-red: #8b0000;
+  --brass-gold: #b8860b;
+  --charcoal: #2b2b2b;
+  --off-white: #f5f3ed;
+  --border-tactical: #4a4a3a;
+  --shadow-deep: rgba(0, 0, 0, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: var(--aged-paper);
+  color: var(--charcoal);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+button,
+a,
+input,
+textarea {
+  touch-action: manipulation;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== NAVIGATION ===== */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--military-green);
+  border-bottom: 3px solid var(--brass-gold);
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brass-gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 1001;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+.nav-menu a {
+  color: var(--off-white);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-menu a::before {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--brass-gold);
+  transition: width 0.3s;
+}
+
+.nav-menu a:hover {
+  color: var(--brass-gold);
+}
+
+.nav-menu a:hover::before {
+  width: 100%;
+}
+
+.enlist-btn {
+  background: var(--blood-red);
+  color: var(--off-white);
+  border: 2px solid var(--blood-red);
+  padding: 0.75rem 1.75rem;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.enlist-btn:hover {
+  background: transparent;
+  color: var(--blood-red);
+  border-color: var(--blood-red);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 28px;
+  height: 3px;
+  background: var(--brass-gold);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* ===== HERO WAR ROOM ===== */
+.hero-war-room {
+  min-height: 100vh;
+  background: 
+    linear-gradient(135deg, var(--military-green) 0%, #0f1a0f 100%);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+  overflow: hidden;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(var(--brass-gold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--brass-gold) 1px, transparent 1px);
+  background-size: 100px 100px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.strategic-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 30% 40%, rgba(139, 0, 0, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(184, 134, 11, 0.1) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.hero-command {
+  max-width: 720px;
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  margin-left: max(0px, calc((100vw - 1200px) / 2));
+}
+
+.hero-visual {
+  position: absolute;
+  right: max(2rem, calc((100vw - 1400px) / 2));
+  bottom: 8%;
+  width: min(34vw, 460px);
+  margin: 0;
+  z-index: 2;
+  transform: rotate(3deg);
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .35));
+}
+
+.hero-visual img {
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(184, 134, 11, .65);
+}
+
+.hero-visual figcaption {
+  margin-top: .75rem;
+  color: var(--aged-paper);
+  font-size: .85rem;
+  letter-spacing: .08em;
+}
+
+.command-title {
+  margin-bottom: 1.5rem;
+}
+
+.rank {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--brass-gold);
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.directive {
+  display: block;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: var(--off-white);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.mission-brief {
+  font-size: 1.35rem;
+  color: var(--aged-paper);
+  margin-bottom: 2.5rem;
+  max-width: 650px;
+  line-height: 1.8;
+}
+
+.action-orders {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.primary-order {
+  background: var(--blood-red);
+  color: var(--off-white);
+  border: 2px solid var(--blood-red);
+  padding: 1.1rem 2.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.primary-order:hover {
+  background: #a00000;
+  border-color: #a00000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
+}
+
+.secondary-order {
+  background: transparent;
+  color: var(--off-white);
+  border: 2px solid var(--off-white);
+  padding: 1.1rem 2.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.secondary-order:hover {
+  background: var(--off-white);
+  color: var(--military-green);
+  transform: translateY(-2px);
+}
+
+.theater-stats {
+  display: flex;
+  gap: 4rem;
+  position: relative;
+  z-index: 2;
+  width: min(720px, 100%);
+  margin: 0 0 0 max(0px, calc((100vw - 1200px) / 2));
+}
+
+.stat-marker {
+  text-align: left;
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--brass-gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--aged-paper);
+  letter-spacing: 1px;
+}
+
+/* ===== TERRITORIES BRIEFING ===== */
+.territories-briefing {
+  padding: 5rem 2rem;
+  background: var(--aged-paper);
+}
+
+.briefing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-command {
+  margin-bottom: 3.5rem;
+  text-align: left;
+  border-left: 4px solid var(--blood-red);
+  padding-left: 1.5rem;
+}
+
+.section-heading {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--charcoal);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -1px;
+}
+
+.section-orders {
+  font-size: 1.25rem;
+  color: #5a5a4a;
+}
+
+.operations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.operation-brief {
+  background: var(--off-white);
+  border: 2px solid var(--border-tactical);
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.operation-brief:hover {
+  border-color: var(--blood-red);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--shadow-deep);
+}
+
+.op-marker {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.op-title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--charcoal);
+  font-weight: 700;
+}
+
+.op-description {
+  font-size: 1.05rem;
+  color: #4a4a3a;
+  line-height: 1.8;
+}
+
+/* ===== COMMAND DOCTRINE ===== */
+.command-doctrine {
+  padding: 5rem 2rem;
+  background: var(--military-green);
+  color: var(--off-white);
+}
+
+.doctrine-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.command-doctrine .section-heading {
+  color: var(--off-white);
+}
+
+.command-doctrine .section-orders {
+  color: var(--aged-paper);
+}
+
+.doctrine-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.doctrine-step {
+  display: flex;
+  gap: 2rem;
+  align-items: start;
+}
+
+.step-marker {
+  min-width: 80px;
+  height: 80px;
+  border: 3px solid var(--brass-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--military-green);
+}
+
+.step-numeral {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--brass-gold);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--brass-gold);
+  font-weight: 700;
+}
+
+.step-briefing {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--aged-paper);
+}
+
+/* ===== FACTION ROSTER ===== */
+.faction-roster {
+  padding: 5rem 2rem;
+  background: #2a2a2a;
+}
+
+.roster-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.faction-roster .section-heading {
+  color: var(--off-white);
+}
+
+.faction-roster .section-orders {
+  color: var(--aged-paper);
+}
+
+.faction-array {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.faction-profile {
+  background: var(--charcoal);
+  border: 3px solid var(--border-tactical);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.faction-profile:hover {
+  border-color: var(--brass-gold);
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px var(--shadow-deep);
+}
+
+.faction-emblem {
+  font-size: 4rem;
+  margin-bottom: 1.25rem;
+}
+
+.faction-designation {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: var(--off-white);
+  font-weight: 700;
+}
+
+.faction-doctrine {
+  color: var(--brass-gold);
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+/* ===== FINAL ORDERS ===== */
+.final-orders {
+  padding: 5rem 2rem;
+  background: var(--blood-red);
+  text-align: center;
+  color: var(--off-white);
+}
+
+.orders-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.orders-heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.orders-text {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+.orders-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.intel-order {
+  background: transparent;
+  color: var(--off-white);
+  border: 2px solid var(--off-white);
+  padding: 1.1rem 2.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.intel-order:hover {
+  background: var(--off-white);
+  color: var(--blood-red);
+  transform: translateY(-2px);
+}
+
+/* ===== CONTACT FORM ===== */
+.contact-briefing {
+  padding: 5rem 2rem;
+  background: var(--aged-paper);
+}
+
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  background: var(--off-white);
+  border: 2px solid var(--border-tactical);
+  padding: 3rem;
+  margin-top: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 1rem;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  border: 2px solid var(--border-tactical);
+  background: var(--aged-paper);
+  color: var(--charcoal);
+  transition: all 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--brass-gold);
+  background: var(--off-white);
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: var(--blood-red);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.error-message {
+  display: block;
+  color: var(--blood-red);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  min-height: 1.2rem;
+}
+
+.submit-order {
+  background: var(--blood-red);
+  color: var(--off-white);
+  border: 2px solid var(--blood-red);
+  padding: 1.1rem 2.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.submit-order:hover {
+  background: #a00000;
+  border-color: #a00000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
+}
+
+.submit-order:disabled {
+  background: #666;
+  border-color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-success {
+  background: var(--off-white);
+  border: 3px solid var(--brass-gold);
+  padding: 3rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--brass-gold);
+  color: var(--off-white);
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-weight: 700;
+}
+
+.success-heading {
+  font-size: 2rem;
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+
+.success-text {
+  font-size: 1.1rem;
+  color: #5a5a4a;
+  line-height: 1.8;
+}
+
+/* ===== FOOTER ===== */
+.command-footer {
+  background: var(--charcoal);
+  border-top: 3px solid var(--brass-gold);
+  padding: 3rem 2rem 1.5rem;
+  color: var(--aged-paper);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brass-gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.footer-tagline {
+  font-size: 1rem;
+  color: var(--aged-paper);
+  font-style: italic;
+}
+
+.footer-contact {
+  margin-top: 1rem;
+  font-size: .95rem;
+}
+
+.footer-contact a {
+  color: var(--aged-paper);
+}
+
+.footer-heading {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: var(--brass-gold);
+  font-weight: 700;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links a {
+  color: var(--aged-paper);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--brass-gold);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-tactical);
+  color: #8a8a7a;
+  font-size: 0.95rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--military-green);
+    padding: 2rem;
+    gap: 1.5rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    border-bottom: 3px solid var(--brass-gold);
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .nav-menu.active {
+    transform: translateX(0);
+  }
+
+  .nav-menu li {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-tactical);
+  }
+
+  .nav-menu li:last-child {
+    border-bottom: none;
+  }
+
+  .nav-menu a {
+    font-size: 1.2rem;
+  }
+
+  .hero-command {
+    text-align: left;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .hero-visual {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(100%, 440px);
+    margin: 2rem auto 0;
+    transform: rotate(0);
+  }
+
+  .directive {
+    font-size: 2.75rem;
+  }
+
+  .mission-brief {
+    font-size: 1.15rem;
+  }
+
+  .action-orders {
+    flex-direction: column;
+  }
+
+  .primary-order,
+  .secondary-order {
+    width: 100%;
+    text-align: center;
+  }
+
+  .theater-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-war-room {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .theater-stats {
+    margin-left: 0;
+  }
+
+  .operations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doctrine-step {
+    flex-direction: column;
+  }
+
+  .step-marker {
+    align-self: flex-start;
+  }
+
+  .faction-array {
+    grid-template-columns: 1fr;
+  }
+
+  .orders-actions {
+    flex-direction: column;
+  }
+
+  .intel-order,
+  .primary-order {
+    width: 100%;
+  }
+
+  .contact-form {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-success {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 1rem 1.25rem;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .section-heading {
+    font-size: 2rem;
+  }
+
+  .directive {
+    font-size: 2.25rem;
+  }
+
+  .hero-visual figcaption {
+    font-size: .75rem;
+  }
+
+  .step-heading {
+    font-size: 1.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+    }
+  }
+
+  .primary-order,
+  .secondary-order,
+  .submit-order,
+  .intel-order {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem 1rem;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+  }
+
+  .op-title,
+  .faction-designation {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero-war-room {
+    padding: 5rem 1.5rem 3rem;
+  }
+
+  .mission-brief {
+    font-size: 1.05rem;
+  }
+
+  .section-command {
+    padding-left: 1rem;
+  }
+
+  .operations-grid,
+  .territories-briefing,
+  .command-doctrine,
+  .faction-roster,
+  .final-orders,
+  .contact-briefing {
+    padding: 4rem 1.5rem;
+  }
+}

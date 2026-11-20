@@ -1,0 +1,45 @@
+OPPSUMMERING AV FRONTEND-DESIGN SKILL
+
+Skillen ber agenten om å opptre som en designleder ved et designstudio som leverer distinkt, gjenkjennelig visuell identitet til hver klient.
+
+HOVEDPRINSIPPER:
+1. Gjør bevisste, meningsfylte valg om palett, typografi og layout basert på produktets emne/tema
+2. Unngå klisjeer og generiske AI-genererte design-mønstre
+3. La emnet og målgruppen forme designet (f.eks. leketo vs. finansdashboard)
+
+KONKRETE RETNINGSLINJER:
+
+Typografi:
+- Velg typefaces bevisst, ikke standard-familier
+- Unngå å aksentuere kun ett ord i overskrifter
+- Unngå ALL CAPS for labels
+- Hold linjelengder under 80 tegn
+
+Visuell struktur:
+- Bruk strukturelle enheter (borders, nummerering) kun når de gir mening
+- Ikke bruk nummererte markører (01/02/03) med mindre innholdet faktisk er en sekvens
+
+Animasjon:
+- Bruk bevegelse sparsomt og målrettet
+- Unngå fade-and-slide-up på hver seksjon (generisk AI-tell)
+
+UNNGÅ DISSE AI-TELLS:
+- Warm cream background (#F4F1EA) med terracotta accent (#D97757)
+- Near-black med acid-green accent
+- SaaS-card kit (identiske rounded cards overalt)
+- ALL-CAPS eyebrows over alle headings
+- Spaced em dash labels ('WORD — fragment')
+- Arrow (→) på alle knapper/linker
+
+PROSESS:
+1. Plan først: Definer color palette (4-6 hex), typefaces, layout-konsept, prinsipper
+2. Review planen mot briefen - sjekk om noe er generisk default
+3. Revider det som er generisk
+4. Bygg koden etter revidert plan
+5. Selvkritikk underveis
+
+KOPIWRITING:
+- Skriv fra brukerens perspektiv
+- Bruk aktiv stemme
+- Hold tone conversational
+- Hvert element skal gjøre én jobb
