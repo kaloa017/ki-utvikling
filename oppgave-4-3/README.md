@@ -10,6 +10,18 @@ De samme tre instruksene ble brukt mot:
 Skyløsningene ligger under `sky/`, og lokalløsningene ligger under `lokal/`.
 Ingen av løsningene ble kopiert mellom modellmappene.
 
+### GPT-5.6 Luna-leveransen
+
+Følgende tre filer er GPT-5.6 Luna sin selvstendige løsning på de tre oppgavene:
+
+- `sky/oppgave-1-partall/partall.py` – partall/oddetall
+- `sky/oppgave-2-primtall/primtall.py` – T-te primtall
+- `sky/oppgave-3-quiz/index.html`, `style.css` og `script.js` – quiz-nettside
+
+Disse ble laget fra de ordrette oppgaveinstruksene uten å bruke lokalmodellens
+kode som grunnlag. Den lokale leveransen ligger separat under `lokal/` og ble
+testet med egne filer.
+
 Den lokale modellen fikk i tillegg denne arbeidsinstruksen for ressursbruk:
 «Utfør én oppgave om gangen. Unngå unødvendig lange svar og forklaringer.
 Ikke les filer eller mapper flere ganger uten grunn. Ikke generer store mengder
